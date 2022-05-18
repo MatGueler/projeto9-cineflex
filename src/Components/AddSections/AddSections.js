@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from "react-router-dom";
+
 function AddHour({ index, hour }) {
     return (
         <>
@@ -24,15 +26,17 @@ function AddDay({ index, time, hours,day }) {
 export default function AddSections({ chair, setChair, times, infos }) {
     return (
         <>
-            <header>CINEFLEX</header>
+            <Link to='/'><header>CINEFLEX</header></Link>
+            <img className='background-movie' src={infos.posterURL}/>
             <div className="background">
                 <main>
                     <h1>Seleciona um filme</h1>
                     {times.map((time, index) => (<AddDay key={index} time={time.date} hours={time.showtimes} day={time.weekday}/>))}
                     <button>Trocar</button>
                 </main>
+                
                 <footer>
-                    <img className='imagem-footer' src={infos.posterURL}/>
+                    <img src={infos.posterURL}/>
                     <h1>{infos.title}</h1>
                 </footer>
             </div>
