@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import AddChairs from './AddChairs/AddChairs';
+import AddChairs from './AddChairs';
 import axios from 'axios';
 import Sucess from '../Sucess/Sucess';
 
@@ -45,7 +45,7 @@ export default function Chairs({ body, setBody }) {
     }
 
     const valor = {
-        ids: idSeat,
+        ids: selected,
         name: buyer,
         cpf: cpf,
         title: info.title,

@@ -1,4 +1,4 @@
-import AddSections from "./AddSections/AddSections";
+import AddSections from "./AddSections";
 import Chairs from "../Chairs/Chairs";
 import { useEffect } from 'react';
 import axios from 'axios';
