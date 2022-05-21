@@ -1,4 +1,4 @@
-import AddMovies from "../AddMovies/AddMovies"
+import AddMovies from "./AddMovies/AddMovies"
 import Sections from "../Sections/Sections";
 import { useState, useEffect } from 'react';
 import axios from 'axios';

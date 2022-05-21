@@ -1,6 +1,6 @@
-import AddSections from "../AddSections/AddSections";
+import AddSections from "./AddSections/AddSections";
 import Chairs from "../Chairs/Chairs";
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -23,10 +23,10 @@ export default function Sections() {
         });
     }, []);
 
-    const [chair, setChair] = React.useState(true)
+
     return (
         <>
-            {chair ? (<AddSections chair={chair} setChair={setChair} times={times} infos={infos}/>) : (<Chairs chair={chair} setChair={setChair} />)}
+            <AddSections times={times} infos={infos}/>
         </>
     )
 }
