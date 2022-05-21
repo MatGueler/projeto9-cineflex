@@ -27,7 +27,7 @@ function Movies({sections,setSections}) {
                     <h1>Seleciona um filme</h1>
                     <div className="movies">
                         {items.length === 0 ? 'ESPERA AI' :
-                            items.map((item, index) => <AddMovies key={index} source={item.posterURL} title={item.title} id={item.id} idSel={idSel} setIdSel={setIdSel}/>)
+                            items.map((item, index) => (<AddMovies key={index} source={item.posterURL} title={item.title} id={item.id} idSel={idSel} setIdSel={setIdSel}/>))
                         }
                     </div>
                     <button onClick={() => setSections(!sections)}>Trocar</button>

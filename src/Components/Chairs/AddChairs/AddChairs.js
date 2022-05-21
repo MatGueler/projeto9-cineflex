@@ -1,6 +1,6 @@
 import React from "react"
 
-function IsAvaliable({seat,avaliable, SetAvaliable, cor, setCor, selected, setSelected}) {
+function Occuped({seat,avaliable, SetAvaliable, cor, setCor, selected, setSelected,idSeat,setIdSeat}) {
 
     function Decision(){
         let verificar =0;
@@ -18,6 +18,13 @@ function IsAvaliable({seat,avaliable, SetAvaliable, cor, setCor, selected, setSe
     }
 
     function Remove(){
+
+        let v = idSeat.filter(function(element){
+            if(element !== seat.id){
+                return true
+            }
+        })
+
         let u = selected.filter(function(element){
             if(element !== seat.name){
                 return true
@@ -25,11 +32,13 @@ function IsAvaliable({seat,avaliable, SetAvaliable, cor, setCor, selected, setSe
         })
         setCor(!cor)
         setSelected(u)
+        setIdSeat(v)
     }
 
     function Change(){
         setCor(!cor)
         setSelected([...selected,seat.name])
+        setIdSeat([...idSeat,seat.id])
     }
     
 
@@ -40,13 +49,13 @@ function IsAvaliable({seat,avaliable, SetAvaliable, cor, setCor, selected, setSe
     )
 }
 
-export default function AddChairs({ index, seat, status, selected, setSelected}) {
+export default function AddChairs({ index, seat, status, selected, setSelected,idSeat,setIdSeat}) {
 
-    const[cor,setCor] = React.useState(true)
+    const[cor,setCor] = React.useState(status)
     const[avaliable,SetAvaliable] = React.useState('')
     return (
         <>
-            {!status ? (<IsAvaliable seat={seat} avaliable={avaliable} SetAvaliable={SetAvaliable} cor={cor} setCor={setCor} selected={selected} setSelected={setSelected}/>): (<h2 className = "chair indisponivel" onClick={() => alert('Esse assento não está disponível')}>{seat.name}</h2>)}
+            {(status) ? (<Occuped seat={seat} avaliable={avaliable} SetAvaliable={SetAvaliable} cor={cor} setCor={setCor} selected={selected} setSelected={setSelected} idSeat={idSeat} setIdSeat={setIdSeat}/>): (<h2 className = "chair indisponivel" onClick={() => alert('Esse assento não está disponível')}>{seat.name}</h2>)}
         </>
     )
 }

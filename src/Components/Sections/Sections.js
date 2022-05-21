@@ -19,7 +19,6 @@ export default function Sections() {
         requisicao.then((resposta) => {
             setInfos(resposta.data)
             setTimes(resposta.data.days)
-            console.log(resposta.data)
         });
     }, []);
 
