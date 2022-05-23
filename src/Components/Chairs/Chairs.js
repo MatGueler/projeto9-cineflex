@@ -67,7 +67,6 @@ export default function Chairs({ body, setBody }) {
 
     return (
         <>
-            <Link to='/'><header>CINEFLEX</header></Link>
             <div className="background">
                 <main>
                     <h1 >Selecione o(s) assento(s)</h1>

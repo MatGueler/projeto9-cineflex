@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { Link, useParams } from "react-router-dom";
+import styled from 'styled-components';
 
 function AddHour({ index, hour }) {
     return (
         <Link to={`/assentos/${hour.id}`}>
             <>
-                <div className='hour'>
+                <Hour>
                     {hour.name}
-                </div>
+                </Hour>
             </>
         </Link >
     )
@@ -17,12 +18,12 @@ function AddHour({ index, hour }) {
 function AddDay({ index, time, hours, day, idSessao }) {
     return (
         <>
-            <div className="section-box">
+            <Section>
                 <h2>{day} - {time}</h2>
-                <div className="hours">
+                <Hours>
                     {hours.map((hour, index) => (<AddHour key={index} hour={hour} idSessao={idSessao} />))}
-                </div>
-            </div>
+                </Hours>
+            </Section>
         </>
     )
 }
@@ -30,7 +31,6 @@ function AddDay({ index, time, hours, day, idSessao }) {
 export default function AddSections({ times, infos }) {
     return (
         <>
-            <Link to='/'><header>CINEFLEX</header></Link>
             <img className='background-movie' src={infos.posterURL} />
             <div className="background">
                 <main>
@@ -47,3 +47,31 @@ export default function AddSections({ times, infos }) {
         </>
     )
 }
+
+
+const Section = styled.div`
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`
+
+const Hours = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+`
+
+const Hour = styled.div`
+    width: 80px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin: 0 20px 20px 20px;
+    cursor: pointer;
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: #E8833A;
+`

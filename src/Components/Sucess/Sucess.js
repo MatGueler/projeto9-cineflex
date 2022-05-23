@@ -21,7 +21,6 @@ export default function Sucess({ body, setBody }) {
 
     return (
         <>
-            <header>CINEFLEX</header>
             <div className="background">
                 <main>
                     <h1 className="sucess">Pedido feito com sucesso!</h1>

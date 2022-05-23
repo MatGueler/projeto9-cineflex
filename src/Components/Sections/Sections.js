@@ -5,7 +5,7 @@ import axios from 'axios';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function Sections() {
+export default function Sections({setButtonBack}) {
 
     const { idFilme } = useParams();
 
@@ -22,6 +22,7 @@ export default function Sections() {
         });
     }, []);
 
+    setButtonBack('flex')
 
     return (
         <>

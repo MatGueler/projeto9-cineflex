@@ -18,20 +18,6 @@ a {
     text-decoration: none;
 }
 
-header {
-    width: 100%;
-    height: 70px;
-    font-size: 34px;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #E8833A;
-    border: solid 1px #9EADBA;
-    background-color: #C3CFD9;
-    z-index: 1;
-}
-
 .background {
     position: absolute;
     top: 70px;
@@ -74,33 +60,6 @@ main>h1 {
     height: 190px;
     object-fit: cover;
     cursor: pointer;
-}
-
-.hours {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-.hour {
-    width: 80px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    margin: 0 20px 20px 20px;
-    cursor: pointer;
-    color: #FFFFFF;
-    text-decoration: none;
-    background-color: #E8833A;
-}
-
-.section-box {
-    margin: 0 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .chairs-box {
