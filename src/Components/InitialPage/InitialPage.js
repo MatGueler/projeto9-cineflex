@@ -24,7 +24,7 @@ function Movies() {
             <header>CINEFLEX</header>
             <div className="background">
                 <main>
-                    <h1>Seleciona um filme</h1>
+                    <h1>Selecione um filme</h1>
                     <div className="movies">
                         {items.length === 0 ? 'ESPERA AI' :
                             items.map((item, index) => (<AddMovies key={index} source={item.posterURL} title={item.title} id={item.id} idSel={idSel} setIdSel={setIdSel} />))

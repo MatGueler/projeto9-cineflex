@@ -34,7 +34,7 @@ export default function AddSections({ times, infos }) {
             <img className='background-movie' src={infos.posterURL} />
             <div className="background">
                 <main>
-                    <h1>Seleciona um filme</h1>
+                    <h1>Seleciona um Horário</h1>
                     {times.map((time, index) => (<AddDay key={index} time={time.date} hours={time.showtimes} day={time.weekday} />))}
                 </main>
 

@@ -103,7 +103,7 @@ export default function Chairs({ body, setBody }) {
                         </div>
                     </div>
 
-                    <Link to='/sucesso'><button className='reserve' onClick={Mudar}>Reservar assento(s)</button></Link>
+                    {(selected.length===0) ? (<button className='reserve' onClick={() => alert('Selecione pelo menos um assento!')}>Reservar assento(s)</button>) : (<Link to='/sucesso'><button className='reserve' onClick={Mudar}>Reservar assento(s)</button></Link>)}
                 </main>
                 <footer>
                     <img src={info.posterURL} alt='' />
