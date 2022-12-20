@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# <p align = "center"> Cineflex </p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center" style="background-color: white">
+   <img src="https://dfg.ai/itemimages/912936910-2-ingressos-para-cinema-RC7P.jpg"/>
+</p>
 
-## Available Scripts
+<p align = "center">
+   <img src="https://img.shields.io/badge/author-Mateus Gueler-4dae71?style=flat-square" />
+</p>
 
-In the project directory, you can run:
+## :clipboard: Descrição
 
-### `npm start`
+A aplicação cineflex é uma simulação de site para compra de ingressos de cinema. Com isso, é possível que o usuário escolha um filme dos que estão em cartaz, e selecione um assento disponível. Basta inserir dados de cpf e nome para efetuar o pedido.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## :computer: Tecnologias e Conceitos
 
-### `npm test`
+- REST APIs
+- Node.js (v16.17.0)
+- JavaScript
+- React
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## :rocket: Rotas
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```yml
+Endpoint: '/'
+    - Rota para selecionar o filme disponível.
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```yml
+Endpoint: '/sessoes/:idFilme'
+    - Rota para escolher a seção/horário do filme que deseja assistir.
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```yml
+Endpoint: '/assentos/idSessao'
+    - Rota para escolher o assento que deseja na sessão.
+```
 
-### `npm run eject`
+```yml
+Endpoint: '/sucesso'
+    - Rota que retorna os dados da compra
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🏁 Rodando a aplicação
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Local
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+O projeto foi inicializado utilizanado [Create React App](https://github.com/facebook/create-react-app), então, verifique se a versão do [Node.js](https:/nodejs.org/en/download/) e [npm](https://www.npmjs.com/) são estáveis e recentes.
 
-## Learn More
+Primeiro, clone o repositório do projeto em sua máquina, utilizando o comando abaixo:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+git clone git@github.com:MatGueler/projeto9-cineflex.git
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Em seguida, instale todas as dependencias necessárias para a execução da aplicação, com o seguinte comando:
 
-### Code Splitting
+```
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Por fim, basta rodar a aplicação em seu terminal pelo comando:
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+npm run start
+```
