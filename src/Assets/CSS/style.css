@@ -229,6 +229,10 @@ main>h1 {
     margin-bottom: 20px;
 }
 
+.buyer-box {
+    margin: 10px 0;
+}
+
 .reserve>h1 {
     width: 100%;
     height: 100%;

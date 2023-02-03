@@ -1,115 +1,194 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import AddChairs from './AddChairs';
 import axios from 'axios';
-import Sucess from '../Sucess/Sucess';
+import Back from '../Back/Back';
 
-export default function Chairs({ body, setBody }) {
+export default function Chairs({ body, setBody, buttonBack, setButtonBack }) {
+	const [seats, setSeats] = React.useState([]);
 
-    const [seats, setSeats] = React.useState([])
+	const [info, setInfo] = React.useState({});
 
-    const [info, setInfo] = React.useState({})
+	const [day, setDay] = React.useState({});
 
-    const [day, setDay] = React.useState({})
+	const [object, setObject] = React.useState({});
 
-    const [object, setObject] = React.useState({})
+	const { idSessao } = useParams();
 
-    const { idSessao } = useParams()
+	const [idSeat, setIdSeat] = React.useState([]);
 
-    const [idSeat, setIdSeat] = React.useState([])
+	const [selected, setSelected] = React.useState([]);
 
-    const [selected, setSelected] = React.useState([])
+	const [buyers, setBuyers] = React.useState([]);
 
-    const [choose, setChoose] = React.useState(true)
+	const [selectedSeats, setSelectedSeats] = useState([]);
 
-    const [buyer, setBuyer] = React.useState('')
+	setButtonBack('flex');
 
-    const [cpf, setCpf] = React.useState('')
+	let navigate = useNavigate();
 
-    useEffect(() => {
-        const requisicao = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`);
+	const AddBuyer = (e, index, seat) => {
+		buyers[index] = { idAssento: seat.id, palavra: e.target.value };
 
-        requisicao.then((resposta) => {
-            setObject(resposta.data)
-            setSeats(resposta.data.seats)
-            setInfo(resposta.data.movie)
-            setDay(resposta.data.day)
-        });
-    }, []);
+		setBuyers([...buyers]);
+	};
 
-    const post = {
-        ids: idSeat,
-        name: buyer,
-        cpf: cpf
-    }
+	const AddCpfBuyer = (e, index, seat) => {
+		buyers[index] = {
+			...buyers[index],
+			cpf: e.target.value,
+			idAssento: seat.id,
+		};
 
-    const valor = {
-        ids: selected,
-        name: buyer,
-        cpf: cpf,
-        title: info.title,
-        hour: object.name,
-        date: day.date
-    }
+		setBuyers([...buyers]);
+	};
 
-    function Mudar() {
+	useEffect(() => {
+		const requisicao = axios.get(
+			`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`
+		);
 
-        const promise = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', post)
+		requisicao.then((resposta) => {
+			setObject(resposta.data);
+			setSeats(resposta.data.seats);
+			setInfo(resposta.data.movie);
+			setDay(resposta.data.day);
+			console.log(resposta.data.movie);
+		});
+	}, []);
 
-        promise.then((res) => { console.log(res.data) })
+	function Mudar() {
+		const promise = axios.post(
+			'https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many',
+			{ ids: selectedSeats, compradores: buyers }
+		);
 
-        let novo = body.map(e => {
-            return valor
-        })
-        setBody([...novo])
-    }
+		const valor = {
+			ids: selectedSeats,
+			compradores: buyers,
+			title: info.title,
+			hour: object.name,
+			date: day.date,
+		};
 
-    return (
-        <>
-            <div className="background">
-                <main>
-                    <h1 >Selecione o(s) assento(s)</h1>
-                    <div className="chairs-box">
-                        {seats.map((seat, index) => (<AddChairs key={index} seat={seat} status={seat.isAvailable} selected={selected} setSelected={setSelected} idSeat={idSeat} setIdSeat={setIdSeat} />))}
-                    </div>
+		promise.then((res) => {
+			setBody(valor);
+			navigate('/sucesso');
+		});
+	}
 
-                    <div className="type-seats">
-                        <div className='type-box'>
-                            <h2 className="chair disponivel"></h2>
-                            <h2> Disponível</h2>
-                        </div>
-                        <div className='type-box'>
-                            <h2 className="chair selecionado"></h2>
-                            <h2>Selecionado</h2>
-                        </div>
-                        <div className='type-box'>
-                            <h2 className="chair indisponivel"></h2>
-                            <h2>Indisponível</h2>
-                        </div>
-                    </div>
+	function validateInfos() {
+		if (selectedSeats.length !== buyers.length) {
+			return alert('Preencha os dados corretamente!');
+		}
+		buyers.forEach((buyer) => {
+			const cpf = (buyer?.cpf).replace(/[.-]/g, '');
+			if (cpf.length !== 11) {
+				return alert('Preencha os dados corretamente!');
+			}
+		});
 
-                    <div className='infos-buyer'>
+		Mudar();
+	}
 
-                        <div>
-                            <h2>Nome do comprador:</h2>
-                            <input type='text' placeholder='Digite seu nome...' value={buyer} onChange={(e) => setBuyer(e.target.value)} />
-                        </div>
+	return (
+		<>
+			<div className='background'>
+				<main>
+					<Back buttonBack={buttonBack} routeBack={`/sessoes/${info.id}`} />
+					<h1>Selecione o(s) assento(s)</h1>
+					<div className='chairs-box'>
+						{seats.map((seat, index) => (
+							<AddChairs
+								key={index}
+								seat={seat}
+								status={seat.isAvailable}
+								selected={selected}
+								setSelected={setSelected}
+								idSeat={idSeat}
+								setIdSeat={setIdSeat}
+								selectedSeats={selectedSeats}
+								setSelectedSeats={setSelectedSeats}
+								setBuyers={setBuyers}
+								buyers={buyers}
+							/>
+						))}
+					</div>
 
-                        <div>
-                            <h2>CPF do comprador:</h2>
-                            <input type='text' placeholder='Digite seu CPF...' value={cpf} onChange={(e) => setCpf(e.target.value)} />
-                        </div>
-                    </div>
+					<div className='type-seats'>
+						<div className='type-box'>
+							<h2 className='chair disponivel'></h2>
+							<h2> Disponível</h2>
+						</div>
+						<div className='type-box'>
+							<h2 className='chair selecionado'></h2>
+							<h2>Selecionado</h2>
+						</div>
+						<div className='type-box'>
+							<h2 className='chair indisponivel'></h2>
+							<h2>Indisponível</h2>
+						</div>
+					</div>
 
-                    {(selected.length===0) ? (<button className='reserve' onClick={() => alert('Selecione pelo menos um assento!')}>Reservar assento(s)</button>) : (<Link to='/sucesso'><button className='reserve' onClick={Mudar}>Reservar assento(s)</button></Link>)}
-                </main>
-                <footer>
-                    <img src={info.posterURL} alt='' />
-                    <div className='title-footer'><p>{info.title}</p>
-                        <p>{day.weekday} - {object.name}</p></div>
-                </footer>
-            </div>
-        </>
-    )
+					{selected.length === 0
+						? null
+						: selected.map((seat, index) => (
+								<>
+									<div className='infos-buyer'>
+										<div>
+											<p>Assento {seat.name}</p>
+											<h2>Nome do comprador:</h2>
+											<input
+												type='text'
+												placeholder='Digite seu nome...'
+												value={buyers[index]?.palavra ?? ''}
+												onChange={(e) => AddBuyer(e, index, seat)}
+												maxLength={14}
+											/>
+										</div>
+
+										<div>
+											<h2>CPF do comprador:</h2>
+											<input
+												type='text'
+												placeholder='Digite seu CPF...'
+												value={buyers[index]?.cpf ?? ''}
+												onChange={(e) => AddCpfBuyer(e, index, seat)}
+											/>
+										</div>
+									</div>
+								</>
+						  ))}
+
+					{selected.length === 0 ? (
+						<button
+							className='reserve'
+							onClick={() => alert('Selecione pelo menos um assento!')}>
+							Reservar assento(s)
+						</button>
+					) : (
+						// <Link to='/sucesso'>
+						<button
+							className='reserve'
+							onClick={() => {
+								validateInfos();
+							}}>
+							Reservar assento(s)
+						</button>
+						// </Link>
+					)}
+				</main>
+				<footer>
+					<img src={info.posterURL} alt='' />
+					<div className='title-footer'>
+						<p>{info.title}</p>
+						<p>
+							{day.weekday} - {object.name}
+						</p>
+					</div>
+				</footer>
+			</div>
+		</>
+	);
 }
